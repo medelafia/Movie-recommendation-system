@@ -1,0 +1,5 @@
+
+recommenation_system/.env
+
+*.pyc
+*.csv
