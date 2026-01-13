@@ -1,0 +1,30 @@
+.dark-input {
+  color: #ffffff;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 8px 10px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.dark-input::placeholder {
+  color: #888;
+}
+
+.dark-input:focus {
+  border-color: #4f8cff;
+  box-shadow: 0 0 0 3px rgba(79, 140, 255, 0.25);
+}
+
+
+.content-image {
+  width : 100% ; 
+  height: auto ;
+}
+
+.line { 
+  width: 200px;  
+  height: 6px ; 
+  background-color: black;
+}

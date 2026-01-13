@@ -1,0 +1,48 @@
+<div class="bg-light py-5 h-100" style="min-height: 95vh;">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between">
+            <h3>History</h3>
+
+            <p-select [options]="types" (onChange)="filter($event)" [(ngModel)]="selectedType" optionLabel="name" placeholder="Select type" class="w-full md:w-56" />
+        </div>
+
+        <div class="row mt-3">
+            @if(filtredHistories?.length == 0 ) { 
+                <div class="d-flex align-items-center justify-content-center">
+                    No History found
+                </div>
+            }@else { 
+                @for(history of filtredHistories; track (history.contentTitle + history.historyType)) {
+                    <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                        <div class="border rounded p-3 container bg-white">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h5>{{history?.contentTitle}}</h5>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    @if(history?.historyType == 'REVIEW') {
+                                        <p-tag severity="success" value="Review" />
+                                    }@else if(history?.historyType == 'RATING') { 
+                                        <p-tag severity="warn" value="Rating" />
+                                    }@else if(history?.historyType == 'LIKE') { 
+                                        <p-tag severity="info" value="Like" />
+                                    }@else { 
+                                        <p-tag severity="danger" value="Dislike" />
+                                    }
+                                    <button [routerLink]="['/', history.contentId, 'details']" size="small"  pButton severity="secondary" icon="pi pi-eye" class="ms-2"></button>
+                                </div>
+                                
+                            </div>
+                            <div class="d-flex align-items-center justify-content-start">
+                                <i class="pi pi-calendar me-2"></i>
+                                <span>{{history.date.toString().split('T')[0]}}</span>        
+                            </div>
+                            <div class="d-flex align-items-center justify-content-start">
+                                <i class="pi pi-clock me-2"></i>
+                                <span>{{history.time}}</span>        
+                            </div>                            
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

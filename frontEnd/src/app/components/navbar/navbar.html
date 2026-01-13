@@ -1,0 +1,39 @@
+
+<nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-start">
+      <i class="pi pi-vimeo text-white me-2"></i>
+      <a class="navbar-brand" [routerLink]="['/']">MovieMood</a>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item d-flex align-items-center mx-2">
+          <i class="pi pi-home text-white"></i>
+          <a class="nav-link active" aria-current="page" [routerLink]="['/']">Home</a>
+        </li>
+        <li class="nav-item d-flex align-items-center mx-2">
+          <i class="pi pi-video text-secondary"></i>
+          <a class="nav-link" [routerLink]="['/discover']">Movies&Series</a>
+        </li>
+        <li class="nav-item d-flex align-items-center mx-2">
+          <i class="pi pi-sparkles text-secondary"></i>
+          <a class="nav-link" [routerLink]="['/recommendation']">Recommended</a>
+        </li>
+        <li class="nav-item d-flex align-items-center mx-2">
+          <i class="pi pi-history text-secondary"></i>
+          <a class="nav-link" [routerLink]="['/history']">History</a>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center justify-content-between">
+        @if(!authenticated) { 
+          <button pButton [routerLink]="['/login']" label="login" icon="pi pi-sign-in" severity="warn" [rounded]="true" size="small"></button>
+        }@else { 
+        <button pButton (click)="logout()" label="logout" icon="pi pi-sign-out" severity="warn" [rounded]="true" size="small"></button>
+        }
+      </div>
+    </div>
+  </div>
+</nav>

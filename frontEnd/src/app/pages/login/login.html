@@ -1,0 +1,45 @@
+<div class="bg-light" style="min-height: 91vh;">
+    <div class="container w-75 py-5">
+        @if(error) {
+            <p-message severity="error" closable>{{error}}</p-message>
+        }
+        <div class="border rounded mt-3 row bg-white" >
+            <form class="col-sm-6 p-5"  [formGroup]="loginFormGroup">
+
+                <h1>Login</h1>
+
+
+                <div class="d-flex flex-column my-2">
+                    <label for="username">Username</label>
+                    <input pInputText id="username" aria-describedby="username-help" formControlName="username" />
+                    @if( ( getFormControl("username")?.dirty || getFormControl("username")?.touched ) &&  !getFormControl("username")?.valid){ 
+                        <small id="email-help" class="text-danger">Enter your username .</small>
+                    }
+                </div>
+
+                <div class="d-flex flex-column my-2">
+                    <label for="password">Password</label>
+                    <input type="password" pInputText id="password" aria-describedby="password-help" formControlName="password" />
+                    @if( ( getFormControl("password")?.dirty || getFormControl("password")?.touched ) &&  !getFormControl("password")?.valid){ 
+                        <small id="email-help" class="text-danger">Enter your password.</small>
+                    }
+                </div>    
+
+
+                <div class="d-flex align-items-center justify-content-between ">
+                    <div class="d-flex mt-2 mb-4 align-items-center">
+                        <input type="checkbox" pInputText id="remember-me"/>
+                        <label for="remember-me" class="ms-2">remember me</label>
+                    </div>    
+                    <a [routerLink]="['/register']" >
+                        don't have an account?
+                    </a>
+                </div>
+                
+                <button (click)="submitLogin()" pButton type="button" [icon]="isLoading ? 'pi pi-spin pi-spinner' : 'pi pi-sign-in'" iconPos="right" severity="warn" label="Login"></button>
+            </form>
+            <div class="col-sm-6 login-image rounded border">
+            </div>
+        </div>
+    </div>
+</div>

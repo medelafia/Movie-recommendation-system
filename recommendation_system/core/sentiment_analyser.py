@@ -5,6 +5,8 @@ import nltk
 from nltk.corpus import stopwords 
 import joblib
 import ssl
+from pydantic import BaseModel 
+from typing import Union
 
 
 try:
@@ -44,3 +46,7 @@ def classify(text) :
    filter_tokenized_list = filter_list(tokenized_list) 
    x = tfidTokenizer.transform([ " ".join(filter_tokenized_list) ] ) 
    return nb_model.predict(x)[0]
+
+
+class ReviewClassificationRequest(BaseModel) : 
+    content : Union[str , None] = None

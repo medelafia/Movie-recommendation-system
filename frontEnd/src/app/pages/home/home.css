@@ -1,0 +1,16 @@
+.hero {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+}
+.hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+}
+.hero-text {
+    font-size: 1.2rem;
+    color: #d1d1d1;
+}
+.search-box input {
+    height: 50px;
+}

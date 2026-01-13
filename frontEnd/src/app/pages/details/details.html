@@ -1,0 +1,167 @@
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-md-3">
+            <img src="{{content?.posterLink}}" alt="" class="w-100 rounded border" (error)="$event.target.src='assets/images/image.png'">
+        </div>
+        <div class="col-md-9 p-5">
+            <div class="d-flex align-items-center justify-content-between">
+                <h1 class="mb-3">{{content?.title}}({{content?.releasedYear}})</h1>
+                
+                <div class="d-flex align-items-center justify-content-center"> 
+                    @if(!interactions.disliked) { 
+                       <button (click)="reactToContent(ReactionType.LIKE)" class="mx-1" pButton icon="pi pi-thumbs-up" severity="help"  [rounded]="true" [outlined]="interactions.liked" [disabled]="interactions.liked"></button> 
+                    }
+                    @if(!interactions.liked){
+                        <button (click)="reactToContent(ReactionType.DISLIKE)" class="mx-1" pButton icon="pi pi-thumbs-down" severity="danger" [rounded]="true" [outlined]="interactions.disliked" [disabled]="interactions.disliked"></button>
+                    }
+                    <button data-bs-toggle="modal" data-bs-target="#ratingModal" class="mx-1" pButton icon="pi pi-star" severity="info" [rounded]="true" [outlined]="interactions.rated"></button>
+                </div>  
+            </div>
+            
+            <div class="d-flex align-items-center justify-content-start ">
+                <div>
+                    <i class="pi pi-star-fill me-1 text-warning"></i>
+                    {{content?.externalRating}}
+                </div>
+                <span class="mx-2">|</span>
+                <div>
+                    {{content?.voteCount}}
+                </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-start my-3 text-capitalize">
+                <div>
+                    {{getRuntime(content)}} min
+                </div>
+                <i class="pi pi-circle-on mx-3" style="font-size: 10px;"></i>
+                <div>
+                    {{constructGenresNames(content?.genres)}}
+                </div>
+                <i class="pi pi-circle-on mx-3" style="font-size: 10px;"></i>
+                <div>
+                    {{content?.releasedYear}}
+                </div>
+            </div>
+            <p>{{ content?.overview }}</p> 
+            <div class="d-flex align-items-center mt-3">
+                <p-tag severity="warn" value="{{content?.certification}} certification" />
+            </div>
+            <div class="my-3">
+                <h5>Actors</h5>
+                <div class="d-flex align-items-center justify-content-start">
+                    @for(actor of content?.actors; track actor.name) {
+                        <p-chip label="{{actor.name}}" class="mx-1" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <div class="mt-5">
+        <div class="d-flex align-items-center justify-content-between">
+            <h4>Reviews</h4>
+            <button data-bs-toggle="modal" data-bs-target="#reviewModal" class="mx-1" pButton icon="pi pi-pen-to-square" severity="warn" [rounded]="true"></button>
+        </div>
+
+        <div class="row">
+            @if(reviewsLoading) { 
+                <div class="my-5 d-flex align-items-center justify-content-center">
+                    <p-progress-spinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />
+                </div>
+            }@else {
+                @if(reviews.length == 0) { 
+                    <div class="my-5 d-flex align-items-center justify-content-center">
+                        No Reviews found
+                    </div>
+                }@else { 
+                    @for(review of reviews; track review.id) {
+                        <div class="col-md-4 my-2">
+                            <div class="container rounded border p-4">
+                                <div class="d-flex align-items-start justify-content-between">
+                                    <div>
+                                        <h5>@{{review?.user?.username}}</h5>
+                                        <p class="text-secondary">{{review.date.toString().split('T')[0]}}</p>
+                                    </div>
+                                    @if(review?.positive) {
+                                        <p-tag severity="success" value="Positive" />
+                                    }@else { 
+                                        <p-tag severity="danger" value="Negative" />
+                                    }
+                                </div>
+                                <p>{{review.reviewContent}}</p>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+        
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Write your review</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        @if(!interactions.reviewed){
+            @if(savingReview) { 
+                <div class="my-5 d-flex align-items-center justify-content-center">
+                    <p-progress-spinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />
+                </div>
+            }@else { 
+                <input type="" class="form-control" placeholder="Write your review here" [(ngModel)]="reviewModel">
+                <div class="d-flex align-items-center justify-content-end">
+                    <button (click)="writeReview()" icon="pi pi-save" pButton severity="warn" label="save" class="mt-4"></button>
+                </div>
+            }
+        }@else {
+            <div class="py-5 d-flex align-items-center justify-content-center flex-column text-success">
+                <i class="pi pi-check" style="font-size: 30px;"></i>
+                <div class="mt-2" style="font-weight: bold;">
+                    Review posted
+                </div>
+            </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Rating</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        @if(!interactions.rated){
+            @if(savingRating) { 
+                <div class="my-5 d-flex align-items-center justify-content-center">
+                    <p-progress-spinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />
+                </div>
+            }@else { 
+                <h4>Please rate the movie in 5</h4>
+                <p-rating [(ngModel)]="ratingModel" [iconOnStyle]="{'color': 'orange'}" [stars]="10"/>  
+                <div class="d-flex align-items-center justify-content-end">
+                    <button (click)="rateContent()" icon="pi pi-save" pButton severity="warn" label="save" class="mt-4"></button>
+                </div>
+            }
+        }@else {
+            <div class="py-5 d-flex align-items-center justify-content-center flex-column text-success">
+                <i class="pi pi-check" style="font-size: 30px;"></i>
+                <div class="mt-2" style="font-weight: bold;">
+                    Content Rated
+                </div>
+            </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

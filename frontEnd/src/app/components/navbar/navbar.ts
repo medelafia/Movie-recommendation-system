@@ -1,0 +1,30 @@
+import { Component, inject, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { JwtService } from '../../services/jwt-service/jwt-service';
+import { UserServices } from '../../services/user-service/user-services';
+
+@Component({
+  selector: 'app-navbar',
+  imports: [ButtonModule , RouterLink],
+  templateUrl: './navbar.html',
+  styleUrl: './navbar.css',
+})
+export class Navbar implements OnInit { 
+  authenticated : boolean = false 
+  userService : UserServices = inject(UserServices)
+  router : Router = inject(Router) 
+
+
+  ngOnInit(): void {
+    this.authenticated = this.userService.authenticated()
+  
+  }
+  
+  logout() { 
+    this.userService.logout()
+    this.authenticated = !this.authenticated
+    this.router.navigate(['/login'])
+  }
+
+}

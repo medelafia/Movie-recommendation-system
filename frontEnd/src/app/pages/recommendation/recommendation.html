@@ -1,0 +1,94 @@
+<div class="container py-5">
+    <div class="d-flex align-items-start justify-content-start">
+        <i class="pi pi-sparkles me-2" style="font-size: 2rem;font-weight: 500;"></i>
+        <h3 class="text-capitalize">recommended for you</h3>
+    </div>
+    
+
+    <div class="row my-5">
+        <div >
+            <h4>Recommended movies</h4>
+            <div class="line"></div>
+        </div>
+        @if(loadingMovies ) { 
+            <div class="row">
+                @for(i of [1,2,3,4]; track i) {
+                    <app-movie-skeleton></app-movie-skeleton>
+                }
+            </div>
+        }@else { 
+            @if(movies?.length == 0) { 
+                <div class="d-flex align-items-center justify-content-center my-5">
+                    No Recommendation found
+                </div>
+            }@else { 
+                @for(movie of movies; track movie.id){
+                    <div class="col-lg-3 col-md-4 col-sm-6 my-2 h-100">
+                        <div (click)="navigate(movie.id)" class="container rounded border p-3 d-flex flex-column align-items-start position-relative"  style="min-height: 450px;">
+                            <img class="content-image" ngSrc="{{movie.posterLink}}" alt="" width="200" height="300" (error)="$event.target.src='assets/images/image.png'" >
+                            <div class="my-3 w-100">
+                                <div class="d-flex align-items-center justify-content-between w-100">
+                                    <h5>{{movie.title}}</h5>
+                                </div>
+                                <p class="text-secondary">{{constructGenresNames(movie.genres )}}</p>
+                                <div class="d-flex align-items-center justify-content-start ">
+                                    <div>
+                                        <i class="pi pi-star-fill me-1 text-warning"></i>
+                                        {{movie?.externalRating}}
+                                    </div>
+                                    <span class="mx-2">|</span>
+                                    <div>
+                                        {{movie?.voteCount}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+
+        <div class="mt-4 mb-3">
+            <h4>Recommended series</h4>  
+            <div class="line"></div>   
+        </div>
+        
+        @if(loadingSeries ) { 
+            <div class="row">
+                @for(i of [1,2,3,4]; track i) {
+                    <app-movie-skeleton></app-movie-skeleton>
+                }
+            </div>
+        }@else { 
+            @if(series?.length == 0 ) { 
+                <div class="d-flex align-items-center justify-content-center">
+                    No Recommendation found
+                </div>
+            }@else {
+                @for(serie of series; track serie.id){
+                    <div class="col-lg-3 col-md-3 col-sm-6 my-2 h-100">
+                        <div (click)="navigate(serie.id)" class="container rounded border p-3 d-flex flex-column align-items-start position-relative"  style="min-height: 400px;">
+                            <img class="content-image" ngSrc="{{serie.posterLink}}" alt="" width="200" height="300" (error)="$event.target.src='assets/images/image.png'" >
+                            <div class="my-3 w-100">
+                                <div class="d-flex align-items-center justify-content-between w-100">
+                                    <h5>{{serie.title}}</h5>
+                                </div>
+                                <p class="text-secondary">{{constructGenresNames(serie.genres )}}</p>
+                                <div class="d-flex align-items-center justify-content-start ">
+                                    <div>
+                                        <i class="pi pi-star-fill me-1 text-warning"></i>
+                                        {{serie?.externalRating}}
+                                    </div>
+                                    <span class="mx-2">|</span>
+                                    <div>
+                                        {{serie?.voteCount}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>

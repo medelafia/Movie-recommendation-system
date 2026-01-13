@@ -1,0 +1,70 @@
+<div class="bg-light py-2" style="min-height: 91vh;">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between my-3">
+            <div>
+                <input type="" class="rounded-pill border px-4 py-2 me-1" placeholder="search for movies" [(ngModel)]="searchKey">
+                <p-button (click)="search()" label="search" icon="pi pi-search" severity="warn" [outlined]="true" [rounded]="true" />
+            </div>
+            <p-button label="filter" icon="pi pi-filter" severity="warn" (click)="visible = true" />
+        </div>
+        <div class="row">
+            @if(isLoading) { 
+                <div class="row py-5">
+                    @for(i of [1 , 2 , 3 , 4 , 5 , 6 , 7 ,8 ]; track i) {
+                        <app-movie-skeleton></app-movie-skeleton>
+                    }
+                </div>
+            }@else { 
+                @for(content of contents; track content.id){
+                    <div class="col-lg-3 col-md-4 col-sm-6 my-2 h-100">
+                        <div (click)="navigate(content.id)" class="container rounded border p-3 d-flex flex-column align-items-start position-relative bg-white"  style="min-height: 430px;">
+                            <img class="content-image" ngSrc="{{content.posterLink}}" alt="" width="200" height="300" (error)="$event.target.src='assets/images/image.png'" >
+                            <div class="my-3 w-100">
+                                <div class="d-flex align-items-center justify-content-between w-100">
+                                    <h5>{{content.title}}</h5>
+                                </div>
+                                <p class="text-secondary">{{constructGenresNames(content.genres )}}</p>
+                                <div class="d-flex align-items-center justify-content-start ">
+                                    <div>
+                                        <i class="pi pi-star-fill me-1 text-warning"></i>
+                                        {{content?.externalRating}}
+                                    </div>
+                                    <span class="mx-2">|</span>
+                                    <div>
+                                        {{content?.voteCount}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-sm-12 my-5 d-flex align-items-center justify-content-center">
+                    <button (click)="incrementSize()" class="text-capitalize" pButton label="load more" severity="warn" [outlined]="true" icon="pi pi-sync">
+                    </button>
+                </div>
+            }
+        </div>
+        <p-drawer [(visible)]="visible" header="Filter">
+            <div class="my-2">
+                <h5>Genres</h5>
+                <div *ngFor="let genre of genres" class="flex items-center">
+                    <p-checkbox [inputId]="genre.key" name="group" [value]="genre" [(ngModel)]="selectedGenre" />
+                    <label [for]="genre.key" class="ms-3"> {{ genre.name }} </label>
+                </div>
+            </div>
+            <div class="my-2">
+                <h5>Date</h5>
+                <p-slider [(ngModel)]="rangeValues" [range]="true" class="w-56" />
+                <div class="d-flex align-items-center justify-content-between  ">
+                    <p>1900</p>
+                    <p>2000</p>
+                </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-end mt-5">
+                <button pButton class="me-1" label="cancel" icon="pi pi-times" [outlined]="true" severity="warn" (click)="visible = true"></button>
+                <button pButton label="filter" icon="pi pi-filter" severity="warn" (click)="visible = true" ></button>
+            </div>
+        </p-drawer>
+    </div>
+</div>
+
