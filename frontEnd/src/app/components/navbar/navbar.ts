@@ -11,8 +11,8 @@ import { UserServices } from '../../services/user-service/user-services';
 })
 export class Navbar implements OnInit { 
   authenticated : boolean = false 
-  userService : UserServices = inject(UserServices)
-  router : Router = inject(Router) 
+  readonly userService : UserServices = inject(UserServices)
+  readonly router : Router = inject(Router) 
 
 
   ngOnInit(): void {

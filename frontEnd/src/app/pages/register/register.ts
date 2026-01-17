@@ -17,7 +17,10 @@ import { AuthResponse } from '../../models/auth-response';
   styleUrl: './register.css',
 })
 export class Register {
-  router : Router = inject(Router)
+  readonly router : Router = inject(Router)
+  readonly userService : UserServices = inject(UserServices) 
+
+  
   isLoading : boolean = false ;
   informationForm : FormGroup = new FormGroup({ 
     username : new FormControl("" , [Validators.required , Validators.maxLength(15) , Validators.minLength(8)]) , 
@@ -29,7 +32,6 @@ export class Register {
     confirmPassword : new FormControl("" , [Validators.required , Validators.minLength(8)]) , 
   })
   error : string | null = null 
-  userService : UserServices = inject(UserServices) 
 
   getFormControl(name : string ) { 
     return this.informationForm.get(name) ; 

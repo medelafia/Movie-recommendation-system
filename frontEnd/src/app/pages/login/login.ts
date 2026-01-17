@@ -15,8 +15,8 @@ import { UserServices } from '../../services/user-service/user-services';
   styleUrl: './login.css'
 })
 export class Login {
-  userService : UserServices = inject(UserServices)
-  router : Router = inject(Router)
+  readonly userService : UserServices = inject(UserServices)
+  readonly router : Router = inject(Router)
 
   loginFormGroup : FormGroup = new FormGroup({ 
     username : new FormControl("" , [Validators.required ]  ) , 

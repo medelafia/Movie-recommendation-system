@@ -11,10 +11,10 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root',
 })
 export class UserServices {
-  baseUrl = "http://localhost:8080/api/user"
-  baseRecommendationUrl = "http://localhost:8000"
-  httpClient : HttpClient = inject(HttpClient) 
-  jwtService : JwtService = inject(JwtService)
+  readonly baseUrl = "http://localhost:8080/api/user"
+  readonly baseRecommendationUrl = "http://localhost:8000"
+  readonly httpClient : HttpClient = inject(HttpClient) 
+  readonly jwtService : JwtService = inject(JwtService)
 
 
   login(loginRequest : LoginRequest ) { 

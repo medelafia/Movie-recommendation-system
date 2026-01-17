@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject , OnInit } from '@angular/core';
 import { Content } from '../../models/content';
 import { Movie } from '../../models/movie';
 import { Genre } from '../../models/genre';
@@ -7,7 +7,7 @@ import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Series } from '../../models/series';
 import { ReviewRequest } from '../../models/review-request';
@@ -29,9 +29,9 @@ import { ReactionRequest, ReactionType } from '../../models/reaction-request';
 export class Details implements OnInit{
   ReactionType = ReactionType
   
-  private activatedRoute = inject(ActivatedRoute)
-  private contentService : ContentService = inject(ContentService) ; 
-  private userServices : UserServices = inject(UserServices)
+  readonly activatedRoute = inject(ActivatedRoute)
+  readonly contentService : ContentService = inject(ContentService) ; 
+  readonly userServices : UserServices = inject(UserServices)
 
   contentId? : number 
   content? : Movie | Series 

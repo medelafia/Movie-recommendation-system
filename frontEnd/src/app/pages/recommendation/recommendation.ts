@@ -14,10 +14,11 @@ import { MovieSkeleton } from '../../components/movie-skeleton/movie-skeleton';
   styleUrl: './recommendation.css',
 })
 export class Recommendation implements OnInit{
-  userServices : UserServices = inject(UserServices) 
+  readonly userServices : UserServices = inject(UserServices) 
+  readonly router : Router = inject(Router)
+
   movies? : Movie[] 
   series? :  Series[]
-  router : Router = inject(Router)
   loadingMovies : boolean = true
   loadingSeries: boolean = true
 

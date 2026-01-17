@@ -1,5 +1,5 @@
 import { NgFor, NgOptimizedImage } from '@angular/common';
-import { Component, inject, Inject, OnInit } from '@angular/core';
+import { Component, inject , OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';

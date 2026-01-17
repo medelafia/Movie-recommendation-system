@@ -12,9 +12,9 @@ import { ReactionRequest } from '../../models/reaction-request';
 })
 export class ContentService {
 
-  httpClient =  inject( HttpClient ) 
-  baseUrl = "http://localhost:8080/api/content"
-  classificationUrl = "http://localhost:8000/reviews/classify"
+  readonly httpClient =  inject( HttpClient ) 
+  readonly baseUrl = "http://localhost:8080/api/content"
+  readonly classificationUrl = "http://localhost:8000/reviews/classify"
 
   getAllContent(page : number , searchKey = "") : Observable<any> { 
     return this.httpClient.get<any>(this.baseUrl + `/?page=${page}` +( searchKey != "" ? `&searchKey=${searchKey}` : "" ))
