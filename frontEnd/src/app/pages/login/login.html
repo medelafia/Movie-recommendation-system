@@ -21,7 +21,7 @@
                     <label for="password">Password</label>
                     <input type="password" pInputText id="password" aria-describedby="password-help" formControlName="password" />
                     @if( ( getFormControl("password")?.dirty || getFormControl("password")?.touched ) &&  !getFormControl("password")?.valid){ 
-                        <small id="email-help" class="text-danger">Enter your password.</small>
+                        <small id="password-help" class="text-danger">Enter your password.</small>
                     }
                 </div>    
 
