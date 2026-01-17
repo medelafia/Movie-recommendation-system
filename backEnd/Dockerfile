@@ -10,6 +10,6 @@ FROM openjdk:17-jdk-slim
 RUN groupadd -r appgroup && useradd -r -g appgroup appuser
 
 WORKDIR /app
-COPY --chown=appuser:appgroup --from=builder /build/target/*.jar app.jar 
+COPY --chown=appuser:appgroup --chmod=755 --from=builder /build/target/*.jar app.jar 
 EXPOSE 8080
 CMD ["java" ,"-jar" , "app.jar"]
