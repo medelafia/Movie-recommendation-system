@@ -4,8 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Router, RouterLink } from '@angular/router';
 import { MessageModule } from 'primeng/message';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import Swal from 'sweetalert2';
+import { HttpErrorResponse } from '@angular/common/http';
 import { LoginRequest } from '../../models/login-request';
 import { UserServices } from '../../services/user-service/user-services';
 

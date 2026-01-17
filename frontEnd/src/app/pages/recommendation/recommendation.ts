@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { UserServices } from '../../services/user-service/user-services';
-import { Content } from '../../models/content';
 import { Router } from '@angular/router';
 import { Genre } from '../../models/genre';
 import { NgOptimizedImage } from '@angular/common';

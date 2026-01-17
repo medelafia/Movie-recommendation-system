@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-import { JwtService } from '../../services/jwt-service/jwt-service';
 import { UserServices } from '../../services/user-service/user-services';
 
 @Component({
