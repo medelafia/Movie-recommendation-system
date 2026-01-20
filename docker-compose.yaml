@@ -6,17 +6,27 @@ networks:
 
 services:
   backend-service:
-    build: .
+    build: ./backEnd
     container_name: api-server
     ports:
       - "8080:8080"
     env_file:
-      - .env
+      - backEnd/.env
     networks:
       - kafka-net
     depends_on :
       - mysql-service
       - kafka
+      - recommendation_system
+  recommendation-service: 
+    build: ./recommendation_system
+    ports: 
+      - "5000:5000"
+    networks: 
+      - kafka-net
+    depends_on:
+      - kafka
+      
 
   mysql-service:
     image: mysql:8.0
@@ -24,10 +34,10 @@ services:
     ports:
       - "3306:3306"
     env_file:
-      -.env
+      - backEnd/.env
     networks:
       - kafka-net
-
+  
   kafka:
     image: confluentinc/cp-kafka:7.6.1
     container_name: kafka

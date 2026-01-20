@@ -20,6 +20,7 @@ import java.util.function.Function;
 public class JWTService {
 
     private final String secretKey = "5367566859703373367639792F423F452848284D6251655468576D5A71347437";
+
     public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", user.getId());

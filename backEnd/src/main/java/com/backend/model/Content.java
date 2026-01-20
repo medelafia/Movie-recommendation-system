@@ -18,14 +18,15 @@ import java.util.Set;
 @SuperBuilder
 public class Content {
     @Id
-    private int id ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id ;
     private String title ;
     @Lob
     private String overview ;
     private String posterLink ;
-    private float externalRating;
-    private int voteCount ;
-    private int releasedYear ;
+    private Float externalRating;
+    private Integer voteCount ;
+    private Integer releasedYear ;
     private String certification ;
 
 

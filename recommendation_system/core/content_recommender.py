@@ -22,7 +22,6 @@ def clean(x) :
 
 df_series = pd.read_csv('datasets/series_data.csv')
 df_movies = pd.read_csv('datasets/movies_data.csv')
-#df = pd.concat([df_movies[["Series_Title" , "Genre" , "pip install bullmqStar1" , "Star2"]] ,df_series[["Series_Title" , "Genre" , "Star1" , "Star2"]] ], axis=0 ,ignore_index=True)
 
 df_movies = df_movies[["Series_Title" , "Genre"]]
 df_series = df_movies[["Series_Title" , "Genre"]]

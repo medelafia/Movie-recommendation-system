@@ -1,9 +1,7 @@
 import pandas as pd 
 from pydantic import BaseModel 
 from typing import Optional
-import numpy as np 
 import re
-import time
 import requests
 def clean(x) :
     new_x = []

@@ -1,16 +1,16 @@
-from typing import Union
-from pydantic import BaseModel 
 from core.sentiment_analyser import classify , ReviewClassificationRequest
 from core.content_recommender import recommend 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from core.event_processing import start_event_consuming
+import threading
+
 
 app = FastAPI()
 
 origins = [
     "http://localhost:4200"
 ]
-
 app.add_middleware(
     CORSMiddleware , 
     allow_origins=origins,        
@@ -18,6 +18,11 @@ app.add_middleware(
     allow_methods=["*"],          
     allow_headers=["*"], 
 )
+
+@app.on_event("startup") 
+async def on_startup() : 
+    thread = threading.Thread(target=start_event_consuming , daemon=True)
+    thread.start()
 
 @app.post("/reviews/classify")
 async def classify_review( review : ReviewClassificationRequest):
