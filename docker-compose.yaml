@@ -17,7 +17,7 @@ services:
     depends_on :
       - mysql-service
       - kafka
-      - recommendation_system
+      - recommendation-service
   recommendation-service: 
     build: ./recommendation_system
     ports: 

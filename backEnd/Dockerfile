@@ -1,11 +1,11 @@
-FROM maven:3.8.6-openjdk-17 AS builder 
+FROM maven:3.8.5-openjdk-17 AS builder 
 
 WORKDIR /build 
 COPY pom.xml . 
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-alpine
 
 RUN groupadd -r appgroup && useradd -r -g appgroup appuser
 
