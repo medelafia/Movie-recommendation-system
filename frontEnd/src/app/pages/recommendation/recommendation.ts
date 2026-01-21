@@ -35,6 +35,7 @@ export class Recommendation implements OnInit{
       next : (response) => { 
         this.loadingMovies = false 
         this.movies = response
+        console.log(response)
       } , 
       error : () => {
         this.loadingMovies = false 

@@ -36,6 +36,7 @@ public class SecurityConfig {
         http.cors(Customizer.withDefaults()) ;
         http.authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
+
                         .requestMatchers(
                                 "/api/user/auth/**" ,
                                 "/api/content/all" ,
@@ -43,7 +44,7 @@ public class SecurityConfig {
                                 "/api/content/"
                         )
                         .permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
         ) ;
         http.authenticationProvider(this.authenticationProvider());
         http.addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class) ;

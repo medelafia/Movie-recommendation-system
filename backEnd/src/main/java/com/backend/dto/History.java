@@ -1,6 +1,6 @@
 package com.backend.dto;
 
-import com.backend.HistoryType;
+import com.backend.enums.HistoryType;
 import lombok.*;
 
 import java.sql.Date;

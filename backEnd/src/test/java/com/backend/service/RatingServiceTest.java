@@ -9,23 +9,19 @@ import com.backend.repository.ContentRepository;
 import com.backend.repository.RatingRepository;
 import com.backend.repository.UserRepository;
 import com.backend.utils.TestingUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import javax.swing.text.html.Option;
 import java.sql.Date;
 import java.sql.Time;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,12 +34,23 @@ class RatingServiceTest {
     private ContentRepository contentRepository;
     @InjectMocks
     private RatingService ratingService;
-    @Test
-    public void saveRatingTest() {
-        User user = User.builder()
+
+    private Content content;
+    private User user;
+
+    @BeforeEach
+    void setUp() {
+        this.content = TestingUtils.getContentsToTest().get(0) ;
+        this.content.setId(0);
+
+        user = User.builder()
                 .id(0).lastName("mohamed").lastName("el afia")
                 .build() ;
-        Content content = TestingUtils.getContentsToTest().get(0) ;
+    }
+
+
+    @Test
+    public void saveRatingTest() {
         Rating rating = Rating.builder()
                 .content(content)
                 .user(user)

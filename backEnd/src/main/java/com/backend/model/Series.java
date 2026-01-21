@@ -14,6 +14,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @DiscriminatorValue("SERIES")
 public class Series extends Content {
-    private float episodeRuntime ;
-    private int endYear ;
+    private Integer episodeRuntime ;
+    private Integer endYear ;
 }

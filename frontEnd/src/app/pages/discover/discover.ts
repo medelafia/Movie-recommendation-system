@@ -12,13 +12,15 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { Genre } from '../../models/genre';
 import { ContentService } from '../../services/content-service/content-service';
 import { MovieSkeleton } from '../../components/movie-skeleton/movie-skeleton';
+import { SelectModule } from 'primeng/select';
+import { Observable } from 'rxjs';
 
 
 
 
 @Component({
   selector: 'app-discover',
-  imports: [ NgOptimizedImage ,  RatingModule , FormsModule ,  ButtonModule , DrawerModule , CheckboxModule , NgFor , SliderModule , ProgressSpinnerModule , MovieSkeleton],
+  imports: [ NgOptimizedImage ,  RatingModule , FormsModule ,  ButtonModule , DrawerModule , CheckboxModule , NgFor , SliderModule , ProgressSpinnerModule , MovieSkeleton , SelectModule],
   templateUrl: './discover.html',
   styleUrl: './discover.css' , 
   standalone : true
@@ -39,28 +41,55 @@ export class Discover implements OnInit {
   isLoading : boolean = true 
   page : number = 0 ; 
 
+
   visible = false
+
+  types = [
+    {name : "all" , code : "ALL"} , 
+    {name : "movies" , code : "MOVIES"} , 
+    {name : "series" , code : "SERIES"} , 
+  ]
+
+  selectedType? : {name : string , code :string } = { name : "all" , code : "ALL"} 
+
+
+  fetchContent(type : string) { 
+    const observable : Observable<any> = 
+      this.selectedType?.code == "ALL" ? 
+      this.contentService.getAllContent(this.page , this.searchKey)  : 
+      (
+        this.selectedType?.code == "MOVIES" ? 
+          this.contentService.getAllMovies(this.page , this.searchKey) : 
+          this.contentService.getAllSeries(this.page , this.searchKey)
+      ) ; 
+
+    observable.subscribe({
+      next : (response) => { 
+        if(type == "UPDATE") 
+          this.contents = response.content
+        else if(type == "APPEND") 
+          this.contents.push(...response.content)
+          
+      } 
+    })
+  }
+
+  filter(event : any) { 
+    this.fetchContent("UPDATE") 
+  }
 
   incrementSize() {  
     this.page += 1 
-    this.contentService.getAllContent(this.page).subscribe(
-      response =>{
-        console.log(response.content)
-        this.contents.push(...response.content)
-      }
-    )
+    this.fetchContent("APPEND")
   }
+
   OnImageError() { 
     return "public/assets/image.png"
   }
 
   search() { 
     this.page = 0 
-    this.contentService.getAllContent(this.page, this.searchKey).subscribe(
-      response =>{
-        this.contents = response.content 
-      }
-    )
+    this.fetchContent("UPDATE") 
   }
 
   navigate(contentId? : number) { 

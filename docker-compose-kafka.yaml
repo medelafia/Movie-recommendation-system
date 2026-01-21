@@ -5,29 +5,8 @@ networks:
     driver: bridge
 
 services:
-  backend-service:
-    build: .
-    container_name: api-server
-    ports:
-      - "8080:8080"
-    env_file:
-      - .env
-    networks:
-      - kafka-net
-    depends_on :
-      - mysql-service
-      - kafka
-
-  mysql-service:
-    image: mysql:8.0
-    container_name: mysql-container
-    ports:
-      - "3306:3306"
-    env_file:
-      -.env
-    networks:
-      - kafka-net
-
+  
+  
   kafka:
     image: confluentinc/cp-kafka:7.6.1
     container_name: kafka

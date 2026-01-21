@@ -10,9 +10,7 @@ consumer = KafkaConsumer(
     group_id='interaction-group',
     value_deserializer=lambda x: json.loads(x.decode('utf-8'))
 )
-
 r = redis.Redis(host="localhost" , port=6379 )
-
 
 
 

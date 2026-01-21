@@ -5,7 +5,7 @@
                 <input type="" class="rounded-pill border px-4 py-2 me-1" placeholder="search for movies" [(ngModel)]="searchKey">
                 <p-button (click)="search()" label="search" icon="pi pi-search" severity="warn" [outlined]="true" [rounded]="true" />
             </div>
-            <p-button label="filter" icon="pi pi-filter" severity="warn" (click)="visible = true" />
+            <p-select [options]="types" (onChange)="filter($event)" [(ngModel)]="selectedType" optionLabel="name" placeholder="Select type" class="w-full md:w-56" />
         </div>
         <div class="row">
             @if(isLoading) { 

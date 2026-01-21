@@ -37,3 +37,4 @@ async def recommend_movies(userId : int) :
 @app.get("/{userId}/recommendation/series") 
 async def recommend_series(userId : int ) :
     return recommend(userId , type="series")
+

@@ -4,3 +4,4 @@ recommenation_system/.env
 *.csv
 
 backEnd/.env
+kafka

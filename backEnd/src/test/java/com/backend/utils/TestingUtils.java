@@ -9,19 +9,16 @@ public class TestingUtils {
 
     public static List<Content> getContentsToTest() {
         Content content = Content.builder().title("Breaking bad")
-                .id(1)
                 .overview("overview")
                 .genres(Set.of(new Genre("genre")))
                 .actors(Set.of(new Actor("actor")))
                 .build();
         Content content2 = Content.builder().title("Vikings")
-                .id(2)
                 .overview("overview")
                 .genres(Set.of(new Genre("genre")))
                 .actors(Set.of(new Actor("actor")))
                 .build();
         Content content3 = Content.builder()
-                .id(3)
                 .title("John Wick")
                 .overview("overview")
                 .genres(Set.of(new Genre("genre")))

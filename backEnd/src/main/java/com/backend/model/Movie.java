@@ -14,6 +14,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @DiscriminatorValue("MOVIE")
 public class Movie extends Content {
-    private float runtime ;
+    private Integer runtime ;
     private String director ;
 }

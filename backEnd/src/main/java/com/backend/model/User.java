@@ -1,10 +1,7 @@
 package com.backend.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,6 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@Table(name="users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +28,7 @@ public class User implements UserDetails {
     private Date birthDay ;
     private String password;
     private String email;
-    private boolean enableRecommendationByEmail ;
+    private Boolean enableRecommendationByEmail ;
     private String pictureUrl ;
 
     @Override

@@ -24,6 +24,7 @@ public class ContentController {
     private final RatingService ratingService;
     private final ReactionService reactionService;
 
+
     public ContentController(ContentService contentService , ReviewService reviewService , RatingService ratingService , ReactionService reactionService ) {
         this.contentService = contentService;
         this.reviewService = reviewService;
@@ -35,13 +36,34 @@ public class ContentController {
     public Page<Content> getAll(
             @RequestParam(defaultValue = "0" , required = false) int page ,
             @RequestParam(defaultValue = "30" , required = false ) int size ,
-            @RequestParam(required = false)String searchKey ,
-            @RequestParam(required = false)String type
+            @RequestParam(required = false)String searchKey
     ) {
         if(searchKey != null && !searchKey.isEmpty())
             return this.contentService.findAllByTitleContains(searchKey, Pageable.ofSize(size).withPage(page));
 
         return this.contentService.findAll(Pageable.ofSize(size).withPage(page)) ;
+    }
+    @GetMapping("/movies")
+    public Page<Movie> getAllMovies(
+            @RequestParam(defaultValue = "0" , required = false) int page ,
+            @RequestParam(defaultValue = "30" , required = false ) int size ,
+            @RequestParam(required = false)String searchKey
+    ) {
+        if(searchKey != null && !searchKey.isEmpty())
+            return this.contentService.findAllMoviesByTitleContains(searchKey, Pageable.ofSize(size).withPage(page));
+
+        return this.contentService.findAllMovies(Pageable.ofSize(size).withPage(page)) ;
+    }
+    @GetMapping("/series")
+    public Page<Series> getAllSeries(
+            @RequestParam(defaultValue = "0" , required = false) int page ,
+            @RequestParam(defaultValue = "30" , required = false ) int size ,
+            @RequestParam(required = false)String searchKey
+    ) {
+        if(searchKey != null && !searchKey.isEmpty())
+            return this.contentService.findAllSeriesByTitleContains(searchKey, Pageable.ofSize(size).withPage(page));
+
+        return this.contentService.findAllSeries(Pageable.ofSize(size).withPage(page)) ;
     }
 
     @GetMapping("/{id}/details")

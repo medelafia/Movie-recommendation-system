@@ -1,7 +1,7 @@
 package com.backend.service;
 
 
-import com.backend.HistoryType;
+import com.backend.enums.HistoryType;
 import com.backend.dto.AuthRequest;
 import com.backend.dto.AuthResponse;
 import com.backend.dto.History;

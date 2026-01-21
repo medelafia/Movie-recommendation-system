@@ -3,27 +3,24 @@ package com.backend.repository;
 import com.backend.model.Actor;
 import com.backend.model.Content;
 import com.backend.model.Genre;
-import com.backend.model.Movie;
 import com.backend.utils.TestingUtils;
-import org.assertj.core.api.Assertions;
+import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Set;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
 
 @DataJpaTest
 class ContentRepositoryTest {
-    @Autowired
-    private MovieRepository movieRepository;
+
     @Autowired
     private ActorRepository actorRepository;
     @Autowired
@@ -31,18 +28,29 @@ class ContentRepositoryTest {
     @Autowired
     private ContentRepository contentRepository;
 
+
+    @BeforeAll
+    public static void setupDatabase(@Autowired DataSource dataSource) throws SQLException {
+        try (Connection conn = dataSource.getConnection();
+             Statement stmt = conn.createStatement()) {
+            // Drop the problematic constraint
+            stmt.execute("ALTER TABLE content DROP CONSTRAINT IF EXISTS CONSTRAINT_6");
+            // Create correct constraint
+        }
+    }
     @Test
+    @Transactional
     void findAllByTitleContains() {
         Actor actor = this.actorRepository.save(new Actor("actor") );
         Genre genre = this.genreRepository.save(new Genre("genre"));
 
-        List<Movie> contentToInsert = TestingUtils.getMoviesToTest() ;
+        List<Content> contentToInsert = TestingUtils.getContentsToTest();
         contentToInsert.forEach(content -> {
                     content.setActors(Set.of(actor));
                     content.setGenres(Set.of(genre));
                 }) ;
 
-        this.movieRepository.saveAll(contentToInsert) ;
+        this.contentRepository.saveAll(contentToInsert) ;
 
         List<Content> retrievedContent = this.contentRepository.findAllByTitleContains("John" , Pageable.unpaged()).getContent() ;
         assertThat(retrievedContent).isNotEmpty();

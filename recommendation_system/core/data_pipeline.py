@@ -29,7 +29,6 @@ class Actor(BaseModel ) :
 class Genre(BaseModel) : 
     name : str 
 class Content(BaseModel) : 
-    id : int 
     title : str
     overview : str
     posterLink : str 
@@ -55,7 +54,6 @@ class Movie(Content) :
 def insert_series() : 
     for element in df_series.iloc : 
         serie = Series(
-            id=element['ID'] ,
             title=element['Series_Title'] , 
             voteCount=element['No_of_Votes'] , 
             externalRating=element['IMDB_Rating'] , 
@@ -70,15 +68,13 @@ def insert_series() :
 
         response = requests.post("http://localhost:8080/api/content/series" , json=serie.model_dump()) 
 
-        print(response.status_code)
-        print(response.text)
+        print("inserting : " +serie.title + " status code : " +response.status_code )
 
 
 
 def insert_movies() : 
     for element in df_movies.iloc : 
-        serie = Movie(
-            id=element['ID'] ,
+        movie = Movie(
             title=element['Series_Title'] , 
             voteCount=element['No_of_Votes'] , 
             externalRating=element['IMDB_Rating'] , 
@@ -92,14 +88,11 @@ def insert_movies() :
             genres=[Genre(name=genre) for genre in element['Genre']] )
 
 
-        print(serie)
-        response = requests.post("http://localhost:8080/api/content/movies" , json=serie.model_dump() ) 
+        print(movie)
+        response = requests.post("http://localhost:8080/api/content/movies" , json=movie.model_dump() ) 
 
-        print(response.status_code)
-        print(response.text)
+        print("inserting : " +movie.title + " status code : " +response.status_code )
     
 
-
+insert_series()
 insert_movies()
-
-

@@ -19,6 +19,14 @@ export class ContentService {
   getAllContent(page : number , searchKey = "") : Observable<any> { 
     return this.httpClient.get<any>(this.baseUrl + `/?page=${page}` +( searchKey != "" ? `&searchKey=${searchKey}` : "" ))
   }
+  getAllMovies(page : number , searchKey = "") : Observable<any> { 
+    return this.httpClient.get<any>(this.baseUrl + `/movies?page=${page}` +( searchKey != "" ? `&searchKey=${searchKey}` : "" ))
+  }
+  getAllSeries(page : number , searchKey = "") : Observable<any> { 
+    return this.httpClient.get<any>(this.baseUrl + `/series?page=${page}` +( searchKey != "" ? `&searchKey=${searchKey}` : "" ))
+  }
+
+
   getContentById( id : number) : Observable<Series | Movie> { 
     return this.httpClient.get<any>(this.baseUrl + `/${id}/details`)
   }

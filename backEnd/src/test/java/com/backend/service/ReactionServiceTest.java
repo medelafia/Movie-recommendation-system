@@ -1,7 +1,6 @@
 package com.backend.service;
 
-import com.backend.dto.RatingRequest;
-import com.backend.dto.RatingResponse;
+
 import com.backend.dto.ReactionRequest;
 import com.backend.dto.ReactionResponse;
 import com.backend.model.Content;
@@ -9,7 +8,6 @@ import com.backend.model.Rating;
 import com.backend.model.Reaction;
 import com.backend.model.User;
 import com.backend.repository.ContentRepository;
-import com.backend.repository.RatingRepository;
 import com.backend.repository.ReactionRepository;
 import com.backend.repository.UserRepository;
 import com.backend.utils.ReactionType;
@@ -19,15 +17,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -49,7 +44,10 @@ class ReactionServiceTest {
         User user = User.builder()
                 .id(0).lastName("mohamed").lastName("el afia")
                 .build() ;
+
         Content content = TestingUtils.getContentsToTest().get(0) ;
+        content.setId(0);
+
         Rating rating = Rating.builder()
                 .content(content)
                 .user(user)

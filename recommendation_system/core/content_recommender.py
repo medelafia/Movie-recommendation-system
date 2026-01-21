@@ -14,6 +14,7 @@ class RecommendationResponse(BaseModel) :
 
 r = redis.Redis(host="localhost" , port=6379 )
 
+
 def clean(x) :
     new_x = []
     for i in x.split(",") :
@@ -56,20 +57,23 @@ nn_series = NearestNeighbors(n_neighbors=6 )
 nn_series.fit(df_expanded_series.values)
 
 def recommend(user_id , type="movies") :
+    r.delete(f"{user_id}")
     if r.get(str(user_id)) : 
         preferences = json.loads(r.get(str(user_id)))
         print("loaded from cache")
     else : 
         
         print("set new values")
-        preferences = requests.get(f"http://localhost:8080/api/user/{user_id}/preferences").json()
-        r.set(str(user_id) , json.dumps(preferences))
+        result = requests.get(f"http://localhost:8080/api/user/{user_id}/preferences")
+        if result.status_code == 200 :
+            preferences = result.json()
+            r.set(str(user_id) , json.dumps(preferences))
 
     print("preferences" , preferences) 
     if type == "movies" : 
         preferences = list(filter(lambda x : x > 2000 , preferences))
+        preferences = np.array(preferences) - 2001
         user_preferences = df_expanded_movies.iloc[preferences] 
-
 
     
         user_preferences_mean = np.array(user_preferences).mean(axis=0)

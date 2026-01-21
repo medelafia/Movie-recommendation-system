@@ -32,17 +32,17 @@ public class Content {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "content_genres",
+            name = "content_actors",
             joinColumns = @JoinColumn(name = "content_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_name")
+            inverseJoinColumns = @JoinColumn(name = "actor_name")
     )
     private Set<Actor> actors ;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "content_actors",
+            name = "content_genres",
             joinColumns = @JoinColumn(name = "content_id"),
-            inverseJoinColumns = @JoinColumn(name = "actor_name")
+            inverseJoinColumns = @JoinColumn(name = "genre_name")
     )
     private Set<Genre> genres ;
 }

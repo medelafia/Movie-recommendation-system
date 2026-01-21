@@ -1,6 +1,5 @@
 package com.backend.service;
 
-
 import com.backend.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
