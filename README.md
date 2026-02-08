@@ -2,12 +2,6 @@ Movie Recommendation System
 
 Overview
 
-A movie recommendation system developed using Angular for the frontend, Spring Boot for the backend, and Python (FastAPI) for generating recommendations using a machine learning model (KNN). The system also features sentiment analysis to classify user reviews and provide robust recommendations based on user preferences. The system utilizes Kafka for event-driven architecture and Redis for cachHere's a sample README file for your GitHub repository:
-
-Movie Recommendation System
-
-Overview
-
 A movie recommendation system developed using Angular for the frontend, Spring Boot for the backend, and Python (FastAPI) for generating recommendations using a machine learning model (KNN). The system also features sentiment analysis to classify user reviews and provide robust recommendations based on user preferences. The system utilizes Kafka for event-driven architecture and Redis for caching user preferences to reduce response latency. MySQL is used as the database.
 
 Technologies Used
